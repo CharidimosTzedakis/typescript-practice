@@ -146,7 +146,16 @@ function mapNode<T extends TreeNode>(node: T, f: (value: string) => string): T {
     value: f(node.value),
   };
 }
-
 let node1 = mapNode(a1, (_) => _.toUpperCase());
 let node2 = mapNode(b1, (_) => _.toUpperCase());
 let node3 = mapNode(d1, (_) => _.toUpperCase());
+
+function call<T extends unknown[], U>(f: (...args: T) => U, ...args: T): U {
+  return f(...args);
+}
+
+function fill(length: number, value: string): string[] {
+  return Array.from({ length }, () => value);
+}
+
+call(fill, 10, "a");
