@@ -83,3 +83,70 @@ console.log(
     }
   }),
 );
+
+type MapFunction = <T, V>(array: T[], transform: (item: T) => V) => V[];
+type MapFunctionGeneric<T, V> = (array: T[], transform: (item: T) => V) => V[];
+
+const map: MapFunction = (array, transform) => {
+  const result = [];
+
+  for (const item of array) {
+    result.push(transform(item));
+  }
+
+  return result;
+};
+
+console.log(map([1, 2, 3], (item) => `the number is ${item}`));
+console.log(map<number, string>([1, 2, 3], (item) => `the number is ${item}`));
+
+let promise = new Promise<number>((resolve) => resolve(45));
+promise.then((result) => result * 4);
+
+type MyEvent<T> = {
+  target: T;
+  type: string;
+};
+// type ButtonEvent = MyEvent<HTMLButtonElement>;
+
+type TimedEvent<T> = {
+  event: MyEvent<T>;
+  from: Date;
+  to: Date;
+};
+
+// ------------------------------- Bounded Polymorphism ---------------------------- //
+type TreeNode = {
+  value: string;
+};
+type LeafNode = TreeNode & {
+  isLeaf: true;
+};
+type InnerNode = TreeNode & {
+  children: [TreeNode] | [TreeNode, TreeNode];
+};
+
+let a1: TreeNode = { value: "a" };
+let b1: LeafNode = { value: "b", isLeaf: true };
+let d1: InnerNode = { value: "c", children: [b1] };
+
+// type MapNode = <T>(
+//   node: TreeNode & T,
+//   callbackFn: (value: string) => string,
+// ) => TreeNode & T;
+//
+// const mapNode: MapNode = (node, callbackFn: (value: string) => string) => {
+//   node.value = callbackFn(node.value);
+//   return node;
+// };
+
+function mapNode<T extends TreeNode>(node: T, f: (value: string) => string): T {
+  return {
+    ...node,
+    value: f(node.value),
+  };
+}
+
+let node1 = mapNode(a1, (_) => _.toUpperCase());
+let node2 = mapNode(b1, (_) => _.toUpperCase());
+let node3 = mapNode(d1, (_) => _.toUpperCase());
