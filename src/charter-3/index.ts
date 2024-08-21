@@ -36,14 +36,14 @@ let person: {
   lastName: "barrowman",
 };
 
-class Person {
-  constructor(
-    public firstName: string,
-    public lastName: string,
-  ) {}
-}
-
-person = new Person("matt", "smith");
+// class Person {
+//   constructor(
+//     public firstName: string,
+//     public lastName: string,
+//   ) {}
+// }
+//
+// person = new Person("matt", "smith");
 
 let a9: { b: number };
 // a9 = {};
@@ -78,6 +78,7 @@ let user: {
 
 // user.firstName = "abbey with an e";
 
+// avoid empty object literals because everything is assignable to it except null and undefined
 let danger: {};
 danger = {};
 danger = { x: 1 };
@@ -94,6 +95,11 @@ let a11: {} = {
 //     return 3;
 //   },
 // };
+
+let test: object;
+test = {
+  b: 1,
+};
 
 // ------- Union and Intersections ----------- //
 
@@ -205,3 +211,31 @@ let f = [1, false];
 const g = [3];
 let h = null;
 const i = null;
+
+// const Colors = {
+//   Red: "Red",
+//   Blue: "Blue",
+// } as const;
+//
+// type c = keyof typeof Colors;
+//
+// let t1 = Colors.Red;
+//
+// interface Persona {
+//   name: string;
+//   age: number;
+//   location: string;
+// }
+// type SomeNewType = keyof Persona;
+
+class Colori {
+  static Redi = "Red";
+  static Blui = "Blue";
+}
+
+const t = Colori.Blui;
+
+let s = 3;
+
+type ColorType = (typeof Colori)[keyof typeof Colori];
+let q: ColorType = Colori;
