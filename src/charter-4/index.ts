@@ -76,6 +76,20 @@ function createElement(tag: string): HTMLElement {
   return document.createElement(tag);
 }
 
+type WarnUser = {
+  (warning: string): void;
+  wasCalled: boolean;
+};
+
+const warnUser: WarnUser = (warning) => {
+  if (warnUser.wasCalled) {
+    return;
+  }
+  warnUser.wasCalled = true;
+  alert(warning);
+};
+warnUser.wasCalled = false;
+
 // ---------------- GENERIC types ---------------- //
 
 type Filter = <T>(array: T[], cb: (item: T) => boolean) => T[];
