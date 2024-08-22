@@ -19,6 +19,19 @@ function add(a: number, b: number) {
   return a + b;
 }
 
+type Context = {
+  appId?: string;
+  userId?: string;
+};
+
+function log(message: string, context: Context = {}) {
+  const time = new Date().toISOString();
+  console.log(time, message, context.userId);
+}
+
+log("this is a message", { userId: "usr-292Ak291" });
+log("please log this");
+
 add(10, 20);
 add.apply(null, [10, 20]);
 add.call(null, 10, 20);
@@ -54,6 +67,14 @@ for (const q of numbers) {
 
 let allNumbers = [...numbers];
 let [one, two, ...rest] = numbers;
+
+// overloading function declarations
+function createElement(tag: "a"): HTMLAnchorElement;
+function createElement(tag: "canvas"): HTMLCanvasElement;
+function createElement(tag: "table"): HTMLTableElement;
+function createElement(tag: string): HTMLElement {
+  return document.createElement(tag);
+}
 
 // ---------------- GENERIC types ---------------- //
 
