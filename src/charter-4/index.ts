@@ -133,7 +133,7 @@ const map: MapFunction = (array, transform) => {
 };
 
 console.log(map([1, 2, 3], (item) => `the number is ${item}`));
-console.log(map<number, string>([1, 2, 3], (item) => `the number is ${item}`));
+console.log(map([1, 2, 3], (item) => `the number is ${item}`));
 
 let promise = new Promise<number>((resolve) => resolve(45));
 promise.then((result) => result * 4);
@@ -149,6 +149,17 @@ type TimedEvent<T> = {
   from: Date;
   to: Date;
 };
+
+function triggerEvent<T>(event: MyEvent<T>): void {
+  console.log("trigger the event");
+}
+
+let myEvent: MyEvent<HTMLButtonElement | null> = {
+  target: document.querySelector("#myButton"),
+  type: "click",
+};
+
+triggerEvent(myEvent);
 
 // ------------------------------- Bounded Polymorphism ---------------------------- //
 type TreeNode = {
