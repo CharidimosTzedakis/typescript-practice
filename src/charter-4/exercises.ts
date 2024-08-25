@@ -1,3 +1,8 @@
+/*
+exercise answers:
+https://github.com/bcherny/programming-typescript-answers/blob/master/src/ch04/exercises.ts
+ */
+
 // 1. => Typescript infers both parameters and the return type
 // --------------------------------------------------------------------- //
 
@@ -112,18 +117,16 @@ function testFunc(length: number, arg2: number, arg3: number): string[] {
   return ["test"];
 }
 
-callFnc(testFunc, 2, 2, 3);
+// callFnc(testFunc, 2, 2, 3);
 
 // 5.
-type Is = <T extends string | boolean | number>(type1: T, type2: T) => boolean;
 
-function is(
-  type1: string | boolean | number,
-  type2: string | boolean | number,
-): boolean {
-  return type1 === type2;
+function is<T>(a: T, ...b: [T, ...T[]]): boolean {
+  return b.every((_) => _ === a);
 }
 
-is("string", "otherstring");
-is(true, false);
-is(10, "foo");
+console.log(is("string", "otherstring"));
+console.log(is(true, false));
+console.log(is(42, 42));
+console.log(is(10, "foo"));
+console.log(is([1], [1, 2], [1, 2, 3]));
