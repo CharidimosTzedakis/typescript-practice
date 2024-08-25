@@ -18,7 +18,7 @@ function argumentsExampleRest(...args: number[]) {
 // 3. Ability to book vacation that starts immediately
 type Reservation = {
   id: string;
-  from: Date;
+  from?: Date;
   to?: Date;
   destination: string;
 };
@@ -26,31 +26,70 @@ type Reservation = {
 type Reserve = {
   (from: Date, to: Date, destination: string): Reservation;
   (from: Date, destination: string): Reservation; // one way
+  (destination: string): Reservation; // start immediately
 };
 
 let reserve: Reserve = (
-  from: Date,
-  toOrDestination: Date | string,
+  fromOrDestination: Date | string,
+  toOrDestination?: Date | string,
   destination?: string,
 ) => {
-  if (toOrDestination instanceof Date) {
-    if (typeof destination === "undefined") {
-      throw Error("Please define destination");
-    }
+  if (typeof fromOrDestination === "string") {
+    return {
+      id: "immediate-trip",
+      destination: fromOrDestination,
+    };
+  }
 
+  if (typeof toOrDestination === "string") {
+    return {
+      id: "one-way",
+      from: fromOrDestination,
+      destination: toOrDestination,
+    };
+  }
+
+  if (toOrDestination instanceof Date && typeof destination === "string") {
     return {
       id: "round-trip",
-      from,
+      from: fromOrDestination,
       to: toOrDestination,
       destination,
     };
   }
 
-  return {
-    id: "one-way",
-    from,
-    destination: toOrDestination,
-  };
+  throw Error("invalid params");
 };
+
+function bookReserve({
+  from,
+  to,
+  destination,
+}: {
+  from?: Date;
+  to?: Date;
+  destination: string;
+}): Reservation {
+  let type: string;
+
+  if (to && !from) {
+    throw Error("Please provide from Date");
+  }
+
+  if (!from && !to) {
+    type = "immediate-trip";
+  } else if (!to) {
+    type = "one-way";
+  } else {
+    type = "round-trip";
+  }
+
+  return {
+    id: type,
+    from,
+    to,
+    destination,
+  };
+}
 
 // 4.
