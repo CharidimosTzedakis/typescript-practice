@@ -6,7 +6,7 @@ function argumentsExample(arg1: number, arg2: number) {
   console.log(arguments[0].toUpperCase());
 }
 
-argumentsExample(1, 2);
+// argumentsExample(1, 2);
 // TypeError: arguments[0].toUpperCase is not a function
 
 // instead we can use the rest parameters for unknown number of arguments
@@ -92,4 +92,38 @@ function bookReserve({
   };
 }
 
-// 4.
+// 4. only for functions whose second argument is string
+function callFnc<T extends [unknown, string, ...unknown[]], R>(
+  f: (...args: T) => R,
+  ...args: T
+): R {
+  return f(...args);
+}
+
+function fillFunc(length: number, value: string): string[] {
+  return Array.from({ length }, () => value);
+}
+
+console.log(callFnc(fillFunc, 1, "test"));
+
+function testFunc(length: number, arg2: number, arg3: number): string[] {
+  console.log(length);
+  console.log(arg2);
+  return ["test"];
+}
+
+callFnc(testFunc, 2, 2, 3);
+
+// 5.
+type Is = <T extends string | boolean | number>(type1: T, type2: T) => boolean;
+
+function is(
+  type1: string | boolean | number,
+  type2: string | boolean | number,
+): boolean {
+  return type1 === type2;
+}
+
+is("string", "otherstring");
+is(true, false);
+is(10, "foo");
