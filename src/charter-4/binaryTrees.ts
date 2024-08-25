@@ -1,3 +1,5 @@
+export {};
+
 type TreeNodeType = {
   value: number;
   children: [TreeNodeType] | [TreeNodeType, TreeNodeType] | null;
