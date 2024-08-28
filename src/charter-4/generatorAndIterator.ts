@@ -26,6 +26,36 @@ console.log(getNumbers.return(3));
 // console.log(getNumbers.next().value);
 //
 
+// async generator function
+const promisedNumber = (n: number) => {
+  return new Promise((resolve) => setTimeout(() => resolve(n), 1000));
+};
+
+async function* promisedNumbers() {
+  const numberList = [2, 0, 19];
+
+  for (const n of numberList) {
+    yield await promisedNumber(n);
+  }
+}
+
+async function getPromisedNumbers() {
+  for await (const j of promisedNumbers()) {
+    console.log("async value: ", j);
+  }
+}
+
+getPromisedNumbers();
+
+// yield* example
+function* delegator() {
+  yield* numbers(0);
+}
+
+const testDelegatorIterator = delegator();
+console.log("delegated generator: ", testDelegatorIterator.next().value);
+console.log("delegated generator: ", testDelegatorIterator.next().value);
+
 // iterable
 // [Symbol.iterator]() must return an iterator
 // if it is a generator function, then it returns an iterator
