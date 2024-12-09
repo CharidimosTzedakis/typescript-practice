@@ -1,4 +1,4 @@
-console.log("Hello Typescript!");
+console.log("Hello Typescript!!");
 
 let a = 1 + 2;
 let b = a + 3;
