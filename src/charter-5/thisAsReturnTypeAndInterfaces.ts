@@ -1,12 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 export {};
 
 class Set {
-  has(value: number): boolean;
-  add(value: number): this; // we use this here instead of Set
+  has(value: number): boolean {
+    return true;
+  }
+  add(value: number): this {
+    // we use this here instead of Set
+    return this;
+  }
 }
 
-class MutableSet extends set {
-  delete(value: number): boolean;
+class MutableSet extends Set {
+  delete(value: number): boolean {
+    return true;
+  }
 
   // no need for this
   // add(value: number): MutableSet;
@@ -17,10 +26,10 @@ interface A {
   bad(x: number): string;
 }
 
-interface B extends A {
-  good(x: string | number): string;
-  bad(x: string): string;
-}
+// interface B extends A {
+//   good(x: string | number): string;
+//   bad(x: string): string;
+// }
 
 type C = {
   good(x: number): string;
@@ -43,10 +52,10 @@ interface Person {
   height: string;
 }
 
-const takis: Person = {
-  name: "takis",
-  age: 25,
-};
+// const takis: Person = {
+//   name: "takis",
+//   age: 25,
+// };
 
 interface AType {
   type: "A";
@@ -64,11 +73,11 @@ const c: Test = {
   message: "hello",
 };
 
-function doSomething(test: Test) {
-  if (test.type !== "B" && test.type !== "C") {
-    test.message;
-  }
-}
+// function doSomething(test: Test) {
+//   if (test.type !== "B" && test.type !== "C") {
+//     test.message;
+//   }
+// }
 
 function handleTest(test: Test) {
   if (test.type === "A") {
@@ -80,7 +89,7 @@ function handleTest(test: Test) {
   }
 }
 
-function isString(test: any): test is string {
+function isString(test: unknown): test is string {
   return typeof test === "string";
 }
 
