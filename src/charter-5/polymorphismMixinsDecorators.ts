@@ -49,3 +49,46 @@ mapVar2.set(2, "twoAltered");
 
 const result = mapVar.merge(mapVar2);
 console.log(result);
+
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+type ClassConstructor<T> = new (...args: any[]) => T;
+type Debuggable = {
+  getDebugValue: () => object;
+};
+
+// function withEZDebug<C extends ClassConstructor>(Class: C) {
+//   return class extends Class {
+//     constructor(...args: any[]) {
+//       super(...args);
+//     }
+//   };
+// }
+
+function withEZDebug<C extends ClassConstructor<Debuggable>>(Class: C) {
+  return class NamedClass extends Class {
+    debug() {
+      const Name = Class.name;
+      const value = this.getDebugValue();
+      return Name + "(" + JSON.stringify(value) + ")";
+    }
+  };
+}
+
+class HardToDebugUser {
+  constructor(
+    private id: number,
+    private firstName: string,
+    private lastName: string,
+  ) {}
+  getDebugValue() {
+    return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+    };
+  }
+}
+
+const User = withEZDebug(HardToDebugUser);
+const user = new User(3, "Emma", "Watson");
+console.log(user.debug());
