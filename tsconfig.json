@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2015",
-      "dom"
-    ],
+    "experimentalDecorators": true,
+//    "lib": [
+//      "es2022",
+//    ],
     "module": "commonjs",
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    // "useDefineForClassFields": true
   },
   "include": [
     "src"

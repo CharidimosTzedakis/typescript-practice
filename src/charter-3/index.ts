@@ -1,3 +1,5 @@
+export {};
+
 let foo: unknown = 32;
 let bar = foo === 123;
 // let z = foo + bar;
