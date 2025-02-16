@@ -53,3 +53,7 @@ type Test = AType | BCType;
 //         test.message
 //     }
 // }
+
+const head = (a: string[]): string => a[0];
+const headOfList = head([]);
+headOfList.charAt(0);
