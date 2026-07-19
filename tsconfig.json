@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-//    "lib": [
-//      "es2022",
-//    ],
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015",
-    // "useDefineForClassFields": true
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src"
