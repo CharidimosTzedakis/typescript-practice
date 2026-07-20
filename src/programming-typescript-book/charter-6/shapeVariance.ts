@@ -29,3 +29,21 @@ type LegacyUser = {
 
 const legacyUser: LegacyUser = { id: "1233", name: "charidimos" };
 // deleteUser(legacyUser);
+
+// classes --> allowed
+class Animal {
+  name = "";
+}
+class Dog extends Animal {
+  bark() {}
+}
+
+const dogs: Dog[] = [];
+const animals: Animal[] = dogs;
+
+class Cat extends Animal {
+  meow() {}
+}
+
+animals.push(new Cat()); // allowed!
+dogs[0].bark(); // runtime error
