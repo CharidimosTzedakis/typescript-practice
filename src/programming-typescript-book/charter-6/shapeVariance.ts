@@ -47,3 +47,21 @@ class Cat extends Animal {
 
 animals.push(new Cat()); // allowed!
 dogs[0].bark(); // runtime error
+
+// assigning one function to another
+type F1 = (a: Animal) => void;
+type F2 = (b: Dog) => void;
+
+// with strictFunctionTypes on:
+// F1 = F2 --> not allowed
+// F2 = F1 --> allowed
+
+// function params are contravariant a>:T ??
+// this is structural assignability, not contravariance
+function calculateSize(point: { x: number; y: number }) {
+  const { x, y } = point;
+  return 2 * x + 2 * y;
+}
+
+const point3D = { x: 1.0, y: 2.0, z: 5.0 };
+calculateSize(point3D);
