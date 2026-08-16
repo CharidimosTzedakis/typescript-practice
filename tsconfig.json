@@ -6,7 +6,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
   },
   "include": [
     "src"
